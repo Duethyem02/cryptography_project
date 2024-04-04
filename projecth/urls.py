@@ -23,6 +23,8 @@ urlpatterns = [
     path('', views.index,name='index'),
     path('text/', views.text_view,name='text'),
     path('image/', views.image_view,name='image'),
+    path('image/encryption/', views.encryption_view,name='encryption'),
+    path('image/decryption/', views.decryption_view,name='decryption'),
     path('encryption/', views.encryption_view,name='encryption'),
     path('decryption/', views.decryption_view,name='decryption'),
 ]
