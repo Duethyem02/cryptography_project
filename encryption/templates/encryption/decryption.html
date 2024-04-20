@@ -1,0 +1,36 @@
+{% extends "encryption/layout.html" %}
+{% load static %}
+{% block script %}
+    <script defer src="{% static 'encryption/decryption.js' %}"></script>
+    <script type="text/javascript">
+        const decryptAesUrl = "{% url 'encryption:decrypt_aes' %}";
+        const decryptRsaUrl = "{% url 'encryption:decrypt_rsa' %}";
+        const csrfToken = "{{ csrf_token }}"
+    </script>
+{% endblock %}
+{% block body %}
+    <div class="container mt-5">
+        <button id="aesBtn" class="btn btn-outline-primary">AES-256</button>
+        <button id="rsaBtn" class="btn btn-outline-primary">RSA-2048</button>
+        <!-- AES Decryption Form -->
+        <div id="aesForm" style="display: none">
+            <br>
+            <h3>AES Decryption</h3>
+            <input type="text" id="aesDecryptKey" placeholder="Enter AES key" class="form-control my-2" required>
+            <input type="text" id="aesDecryptIV" placeholder="Enter IV" class="form-control my-2" required>
+            <textarea type="text" id="aesEncryptedText" placeholder="Enter encrypted text" class="form-control my-2"></textarea>
+            <button onclick="decryptAES()" class="btn btn-success">Decrypt</button>
+            <div id="aesDecryptOutput" style="word-wrap: break-word"></div>
+        </div>
+
+        <!-- RSA Decryption Form -->
+        <div id="rsaForm" style="display: none">
+            <br>
+            <h3>RSA Decryption</h3>
+            <textarea id="rsaDecryptPrivateKey" placeholder="Enter your RSA private key" class="form-control my-2"></textarea>
+            <textarea type="text" id="rsaEncryptedText" placeholder="Enter encrypted text" class="form-control my-2"></textarea>
+            <button onclick="decryptRSA()" class="btn btn-success">Decrypt</button>
+            <div id="rsaDecryptOutput" style="word-wrap: break-word"></div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decryption</title>
+</head>
+<body>
+    {% include 'steganography/navigation.html' %}
+
+    <div class="container mt-5">
+        <h1 class="text-center">Decrpyt Text From Image</h1>
+        <form class="mt-5" method="post" action="{% url 'decryption' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form_group">
+                <label>Encrypted Image</label>
+                <input type="file" name="image" class="form-control-file" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Decrpyt</button>
+        </form>
+    </div>
+    {% if text %}
+        <div class="alert alert-success mt-3">
+            <h4>Decrpyted Text</h4>
+            <p>{{text}}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

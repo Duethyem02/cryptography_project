@@ -1,0 +1,45 @@
+{% extends "encryption/layout.html" %}
+{% load static %}
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script defer src="{% static 'encryption/encryption.js' %}"></script>
+    <script type="text/javascript">
+        const encryptAesUrl = "{% url 'encryption:encrypt_aes' %}";
+        const generateRsaKeyUrl = "{% url 'encryption:get_rsa_keys' %}"
+        const encryptRsaUrl = "{% url 'encryption:encrypt_rsa' %}";
+        const csrfToken = "{{ csrf_token }}"
+    </script>
+{% endblock %}
+{% block body%}
+    <div class="container mt-5">
+        <button id="aesBtn" class="btn btn-outline-primary">AES-256</button>
+        <button id="rsaBtn" class="btn btn-outline-primary">RSA-2048</button>
+
+        <!-- AES Form -->
+        <div id="aesForm" style="display:none;">
+            <br>
+            <div style="display: flex">
+                <h3>AES Encryption</h3>
+                <button onclick="generateAESKey()" class="btn btn-info" style="margin-left: auto">Generate AES Key</button>
+            </div>
+            <input type="text" id="aesKey" placeholder="Enter AES key (32 bytes hex)" class="form-control my-2" required>
+            <input type="text" id="aesIV" placeholder="Enter IV (16 bytes hex)(optional)" data-toggle="tooltip" data-placement="top" class="form-control my-2" title="Initialization Vector (IV) is a random value used to ensure that identical plaintexts encrypt differently, enhancing security. It's optional; if not provided, a random IV will be generated.">
+            <textarea type="text" id="aesText" placeholder="Enter text to encrypt" class="form-control my-2"></textarea>
+            <button onclick="encryptAES()" class="btn btn-success">Encrypt</button>
+            <div id="aesOutput" style="word-wrap: break-word"></div>
+        </div>
+
+        <!-- RSA Form -->
+        <div id="rsaForm" style="display:none;">
+            <br>
+            <div style="display: flex">
+                <h3>RSA Encryption</h3>
+                <button style="margin-left: auto" onclick="generateRSAKeys()" class="btn btn-info">Generate RSA Keys</button>
+            </div>
+            <textarea id="rsaPublicKey" placeholder="Enter your RSA public key" class="form-control my-2"></textarea>
+            <textarea type="text" id="rsaText" placeholder="Enter text to encrypt" class="form-control my-2"></textarea>
+            <button onclick="encryptRSA()" class="btn btn-success">Encrypt</button>
+            <div id="rsaOutput" style="word-wrap: break-word"></div>
+        </div>
+    </div>
+{% endblock %}

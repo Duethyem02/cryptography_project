@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Encryption and Decryption</title>
+    <style>
+        .image-container{
+            position: relative;
+            width: 50%;
+            float: left;
+            text-align: center;
+        }
+        .button-link{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+    {% include 'steganography/t' %}
+
+    <div class="image-container mt-5">
+        <img src="{% static 'images/encryption.jpeg'%}" height="300" width="500">
+        <a href="/" class="btn btn-danger button-link">Encrypt Now</a>
+    </div>
+
+    <div class="image-container mt-5">
+        <img src="{% static 'images/decryption.jpeg'%}" height="300" width="500">
+        <a href="/" class="btn btn-danger button-link">Decrypt Now</a>
+    </div>
+
+</body>
+</html>
